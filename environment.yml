@@ -1,0 +1,13 @@
+name: simpeg-aem-nwt
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12.3
+  - numpy
+  - pandas
+  - matplotlib
+  - simpeg
+  - discretize
+  - pip
+  - pip:
+      - ipykernel
