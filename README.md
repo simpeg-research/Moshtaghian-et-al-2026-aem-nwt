@@ -58,12 +58,12 @@ You can control whether to re-run inversion, save results, or plot only by modif
 ## Dependencies
 
 Core libraries used:
-- [SimPEG](https://github.com/simpeg/simpeg)
-- discretize
-- numpy
-- pandas
-- matplotlib
-- contextily (optional, for map tiles)
+- [SimPEG](https://docs.simpeg.xyz/)
+- [discretize](https://discretize.simpeg.xyz/)
+- [numpy](https://numpy.org/)
+- [pandas](https://pandas.pydata.org/)
+- [matplotlib](https://matplotlib.org/)
+- [contextily](https://contextily.readthedocs.io/en/latest/) (optional, for map tiles)
 
 All dependencies are listed in `environment.yml`.
 
@@ -86,6 +86,6 @@ MIT License. See `LICENSE` file.
 
 ## Acknowledgments
 
-This work was conducted as part of a larger collaboration involving researchers at the University of Alberta and the SimPEG community. Data were collected in the Northwest Territories with support from federal and territorial partners. For scientific context, please cite:
+This work was conducted as part of a larger collaboration involving researchers at the University of Alberta, the University of British Columbia, and the SimPEG community. Data were collected in the Northwest Territories with support from federal and territorial partners. For scientific context, please cite:
 
 > Moshtaghian et al., *Airborne electromagnetic imaging of permafrost reveals heterogeneity and drivers of permafrost change in the discontinuous permafrost zone of northwestern Canada*, 2025 (In Prep).
