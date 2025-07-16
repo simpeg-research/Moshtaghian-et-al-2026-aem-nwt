@@ -31,7 +31,7 @@ def run_halfspace_inversion(m0_hs, survey, mesh_halfspace, mesh_thicknesses_half
 
     # Define data and uncertainty model
     uncertainties = 0.05 * np.abs(dobs) * np.ones(np.shape(dobs))
-    dat_hs = data.Data(survey, dobs=dobs, noise_floor=uncertainties)
+    dat_hs = data.Data(survey, dobs=dobs, standard_deviation=uncertainties)
 
     # Data misfit
     dmisfit_hs = data_misfit.L2DataMisfit(simulation=prob_hs, data=dat_hs)
@@ -117,7 +117,7 @@ def _run_single_multilayer(survey, mesh, mesh_thicknesses, dobs, reference_model
     )
 
     uncertainties = 0.05 * np.abs(dobs) * np.ones(np.shape(dobs))
-    dat = data.Data(survey, dobs=dobs, noise_floor=uncertainties)
+    dat = data.Data(survey, dobs=dobs, standard_deviation=uncertainties)
 
     dmisfit = data_misfit.L2DataMisfit(simulation=sim, data=dat)
 
