@@ -1,4 +1,4 @@
-# src/inversion_utils.py
+# src/inversion.py
 
 import numpy as np
 from simpeg import (
