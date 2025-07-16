@@ -1,4 +1,4 @@
-# src/survey_utils.py
+# src/survey.py
 
 import numpy as np
 from simpeg.electromagnetics import frequency_domain as FDEM
