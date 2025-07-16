@@ -11,7 +11,7 @@ from simpeg import (
     directives,
     data
 )
-from simpeg.electromagnetics import frequency_domain as FDEM
+from simpeg.electromagnetics import frequency_domain as fdem
 
 # -------------------------------------------------------------------------
 # Halfspace inversion for one sounding (single-layer model)
@@ -23,7 +23,7 @@ def run_halfspace_inversion(m0_hs, survey, mesh_halfspace, mesh_thicknesses_half
     log_conductivity_map_hs = maps.ExpMap()
 
     # Define forward model
-    prob_hs = FDEM.Simulation1DLayered(
+    prob_hs = fdem.Simulation1DLayered(
         survey=survey,
         thicknesses=mesh_thicknesses_halfspace,
         sigmaMap=log_conductivity_map_hs
@@ -110,7 +110,7 @@ def _run_single_multilayer(survey, mesh, mesh_thicknesses, dobs, reference_model
     Internal helper function to perform multilayer inversion with or without fixed beta.
     """
     conductivity_map = maps.ExpMap()
-    sim = FDEM.Simulation1DLayered(
+    sim = fdem.Simulation1DLayered(
         survey=survey,
         thicknesses=mesh_thicknesses,
         sigmaMap=conductivity_map
