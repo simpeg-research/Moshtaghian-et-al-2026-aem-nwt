@@ -1,4 +1,4 @@
-# src/DOI_utils.py
+# src/depth_of_investigation.py
 
 import numpy as np
 
