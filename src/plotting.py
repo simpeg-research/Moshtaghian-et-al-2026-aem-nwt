@@ -1,4 +1,4 @@
-# src/plotting_utils.py
+# src/plotting.py
 
 import numpy as np
 import matplotlib.pyplot as plt
