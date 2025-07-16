@@ -13,12 +13,12 @@ The code is part of the study:
 ├── data/                   # Input AEM data files (1D sounding per line)
 ├── outputs/                # Output folder for inverted models and figures
 ├── src/                    # Source code modules
-│   ├── DOI_utils.py
-│   ├── gradient_utils.py
-│   ├── inversion_utils.py
-│   ├── mesh_utils.py
-│   ├── plotting_utils.py
-│   ├── survey_utils.py
+│   ├── depth_of_investigation.py
+│   ├── gradient.py
+│   ├── inversion.py
+│   ├── mesh.py
+│   ├── plotting.py
+│   ├── survey.py
 ├── main.py                 # Entry point to configure and run inversion
 ├── run_aem_inversion.py    # Main inversion workflow logic
 ├── environment.yml         # Conda environment with dependencies
