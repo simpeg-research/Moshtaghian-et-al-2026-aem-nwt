@@ -1,7 +1,7 @@
 # src/survey.py
 
 import numpy as np
-from simpeg.electromagnetics import frequency_domain as FDEM
+from simpeg.electromagnetics import frequency_domain as fdem
 
 
 def define_survey(b_height, frequencies, coil_separations, moment, source_orientation, receiver_orientation, data_type):
@@ -18,7 +18,7 @@ def define_survey(b_height, frequencies, coil_separations, moment, source_orient
     - data_type: type of data to be used ('ppm', 'field')
 
     Returns:
-    - A SimPEG FDEM.Survey object representing all sources and receivers
+    - A SimPEG fdem.Survey object representing all sources and receivers
     """
 
     source_list = []  # container for all magnetic dipole sources
@@ -34,13 +34,13 @@ def define_survey(b_height, frequencies, coil_separations, moment, source_orient
         rx_locs = src_loc - rx_offsets[j]
 
         # Define two Rx components: real and imaginary parts of magnetic field
-        rx_real = FDEM.Rx.PointMagneticFieldSecondary(
+        rx_real = fdem.receivers.PointMagneticFieldSecondary(
             rx_locs,
             orientation=receiver_orientation,
             data_type=data_type,
             component="real"
         )
-        rx_imag = FDEM.Rx.PointMagneticFieldSecondary(
+        rx_imag = fdem.receivers.PointMagneticFieldSecondary(
             rx_locs,
             orientation=receiver_orientation,
             data_type=data_type,
@@ -51,7 +51,7 @@ def define_survey(b_height, frequencies, coil_separations, moment, source_orient
         receivers_list = [rx_real, rx_imag]
 
         # Create a magnetic dipole source with its receivers
-        src = FDEM.Src.MagDipole(
+        src = fdem.sources.MagDipole(
             receivers_list,
             frequencies[j],
             src_loc,
@@ -63,5 +63,5 @@ def define_survey(b_height, frequencies, coil_separations, moment, source_orient
         source_list.append(src)
 
     # Create and return full survey
-    survey = FDEM.Survey(source_list)
+    survey = fdem.Survey(source_list)
     return survey
