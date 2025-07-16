@@ -1,4 +1,4 @@
-# src/mesh_utils.py
+# src/mesh.py
 
 import numpy as np
 import discretize
