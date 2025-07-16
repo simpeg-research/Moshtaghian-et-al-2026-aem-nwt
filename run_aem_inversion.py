@@ -6,19 +6,19 @@ import os
 import pickle
 
 # Import custom inversion, mesh, survey, gradient, DOI, and plotting utilities
-from src.inversion_utils import (
+from src.inversion import (
     run_halfspace_inversion,
     run_multilayer_inversion_average_halfspace_initial,
     run_multilayer_inversion_average_halfspace_initial_fixed_beta0,
 )
-from src.survey_utils import define_survey
-from src.mesh_utils import define_halfspace_mesh, define_multilayer_mesh
-from src.gradient_utils import calculate_gradient
-from src.DOI_utils import (
+from src.survey import define_survey
+from src.mesh import define_halfspace_mesh, define_multilayer_mesh
+from src.gradient import calculate_gradient
+from src.depth_of_investigation import (
     calculate_DOI_Oldenburg_Li_1999,
     calculate_DOI_Christiansen_Auken_2012,
 )
-from src.plotting_utils import plot_resistivity_and_RMS
+from src.plotting import plot_resistivity_and_RMS
 
 # Helper function to extract observed data as a flat float64 array
 def get_dobs(read_data, i, freqs_list):
