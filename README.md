@@ -76,13 +76,13 @@ All dependencies are listed in `environment.yml`.
 - Depth of investigation (DOI) overlays  
 - All results saved in `outputs/` as `.pkl` and `.png`
 
-Below is an example of an RMS misfit result from the fixed beta inversion for AEM line L150020:
+Below is an example output from the fixed beta inversion of AEM Line L150020, showing the resistivity model with gradient-based depth of investigation (black contour) and the corresponding RMS misfit profile.
 
 <p align="center">
-  <img src="outputs/L150020_fixedbeta_RMS.png" width="700">
+  <img src="outputs/L150020_fixedbeta_RMS.png" width="800">
 </p>
 
-<p align="center"><b>Figure:</b> RMS misfit from fixed beta inversion (Line L150020)</p>
+<p align="center"><b>Figure:</b> Fixed β inversion results for Line L150020. Top: resistivity model with estimated DOI (black). Bottom: RMS misfit across source locations.</p>
 
 ---
 
