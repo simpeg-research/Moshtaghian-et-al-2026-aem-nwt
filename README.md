@@ -71,11 +71,18 @@ All dependencies are listed in `environment.yml`.
 
 ## Outputs
 
-- Inverted resistivity sections
-- RMS misfit profiles
-- Depth of investigation (DOI) overlays
+- Inverted resistivity sections  
+- RMS misfit profiles  
+- Depth of investigation (DOI) overlays  
 - All results saved in `outputs/` as `.pkl` and `.png`
 
+Below is an example of an RMS misfit result from the fixed beta inversion for AEM line L150020:
+
+<p align="center">
+  <img src="outputs/L150020_fixedbeta_RMS.png" width="700">
+</p>
+
+<p align="center"><b>Figure:</b> RMS misfit from fixed beta inversion (Line L150020)</p>
 ---
 
 ## License
