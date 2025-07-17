@@ -73,7 +73,7 @@ All dependencies are listed in `environment.yml`.
 
 - Inverted resistivity sections  
 - RMS misfit profiles  
-- Depth of investigation (DOI) overlays  
+- Depth of investigation (DOI) overlays and gradient-based permafrost base estimates  
 - All results saved in `outputs/` as `.pkl` and `.png`
 
 Below is an example output from the fixed β inversion of AEM Line L150020, showing the resistivity model with a gradient-based estimate of the permafrost base (black contour) and the corresponding RMS misfit profile.
