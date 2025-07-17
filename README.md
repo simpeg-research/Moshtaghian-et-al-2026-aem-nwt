@@ -83,6 +83,7 @@ Below is an example of an RMS misfit result from the fixed beta inversion for AE
 </p>
 
 <p align="center"><b>Figure:</b> RMS misfit from fixed beta inversion (Line L150020)</p>
+
 ---
 
 ## License
