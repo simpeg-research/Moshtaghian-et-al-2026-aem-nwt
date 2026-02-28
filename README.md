@@ -1,9 +1,10 @@
 # Airborne EM Inversion for Permafrost Mapping (NWT, Canada)
 
-This repository contains code to perform frequency-domain airborne electromagnetic (AEM) inversion and depth of investigation (DOI) analysis for permafrost mapping in the Northwest Territories (NWT), Canada, using the open-source framework [SimPEG](https://simpeg.xyz/).
+This repository contains code to perform frequency-domain airborne electromagnetic (AEM) inversion, depth of investigation (DOI) analysis, and gradient-based permafrost transition-zone characterization for permafrost mapping in the Northwest Territories (NWT), Canada, using the open-source framework [SimPEG](https://simpeg.xyz/).
 
 The code is part of the study:
-> Moshtaghian et al., 2025. *Airborne electromagnetic imaging of permafrost reveals heterogeneity and drivers of permafrost change in the discontinuous permafrost zone of northwestern Canada*.
+
+> Moshtaghian et al., 2026. *Frequency-domain Airborne Electromagnetic Imaging of Permafrost Reveals Heterogeneity and Drivers of Permafrost Change in the Discontinuous Permafrost Zone of Northwestern Canada*.
 
 ---
 
@@ -17,6 +18,7 @@ The code is part of the study:
 │   ├── gradient.py
 │   ├── inversion.py
 │   ├── mesh.py
+│   ├── pbtz.py
 │   ├── plotting.py
 │   ├── survey.py
 ├── main.py                 # Entry point to configure and run inversion
@@ -32,8 +34,8 @@ The code is part of the study:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/simpeg-research/Moshtaghian-et-al-2025-aem-nwt.git
-cd Moshtaghian-et-al-2025-aem-nwt
+git clone https://github.com/simpeg-research/Moshtaghian-et-al-2026-aem-nwt.git
+cd Moshtaghian-et-al-2026-aem-nwt
 ```
 
 ### 2. Create Environment
@@ -55,6 +57,26 @@ You can control whether to re-run inversion, save results, or plot only by modif
 
 ---
 
+## Method Overview
+
+For each 1D inverted resistivity model:
+
+- Log-resistivity is computed from recovered log-conductivity.
+
+- The vertical gradient ∂log(ρ)/∂z is calculated using second-order finite differences accounting for non-uniform layer thickness.
+
+- The permafrost base center depth (z₀) is defined as the depth of maximum absolute gradient evaluated at cell centers.
+
+- The Permafrost Base Transition Zone (PBTZ) is defined as the narrowest continuous interval surrounding z₀ that contains 50% of the integrated |∂log(ρ)/∂z| within an adaptive depth window.
+
+Depth of investigation is estimated using:
+
+- Oldenburg & Li (1999) reference-model approach
+
+- Christiansen & Auken (2012) Jacobian sensitivity method
+
+---
+
 ## Dependencies
 
 Core libraries used:
@@ -73,10 +95,12 @@ All dependencies are listed in `environment.yml`.
 
 - Inverted resistivity sections  
 - RMS misfit profiles  
-- Depth of investigation (DOI) overlays and gradient-based permafrost base estimates  
+- Depth of investigation (DOI) overlays
+- Gradient-based permafrost base estimates (z0)
+- Permafrost Base Transition Zone (PBTZ) thickness estimates
 - All results saved in `outputs/` as `.pkl` and `.png`
 
-Below is an example output from the fixed β inversion of AEM Line L150020, showing the resistivity model with a gradient-based estimate of the permafrost base (black contour) and the corresponding RMS misfit profile.
+Below is an example output from the fixed β inversion of AEM Line L150020, showing the resistivity model with a gradient-based estimate of the permafrost base (black line) and the corresponding RMS misfit profile.
 
 <p align="center">
   <img src="outputs/L150020_fixedbeta_RMS.png" width="800">
@@ -96,4 +120,4 @@ MIT License. See `LICENSE` file.
 
 This work was conducted as part of a larger collaboration involving researchers at the University of Alberta, the University of British Columbia, and the SimPEG community. Data were collected in the Northwest Territories with support from federal and territorial partners. For scientific context, please cite:
 
-> Moshtaghian et al., *Airborne electromagnetic imaging of permafrost reveals heterogeneity and drivers of permafrost change in the discontinuous permafrost zone of northwestern Canada*, 2025 (In Prep).
+> Moshtaghian et al., *Frequency-domain Airborne Electromagnetic Imaging of Permafrost Reveals Heterogeneity and Drivers of Permafrost Change in the Discontinuous Permafrost Zone of Northwestern Canada*, 2026 (Submitted to AGU Advances).
