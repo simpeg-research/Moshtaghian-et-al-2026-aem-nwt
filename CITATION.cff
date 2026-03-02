@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the associated paper and software release."
+title: "Frequency-domain Airborne Electromagnetic Imaging of Permafrost in Northwestern Canada (SimPEG workflow)"
+version: 1.0.0
+doi: 10.0000/placeholder-doi
+date-released: 2026-01-01
+authors:
+  - family-names: Moshtaghian
+    given-names: Keytash
+    affiliation: University of Alberta
+repository-code: "https://github.com/simpeg-research/Moshtaghian-et-al-2026-aem-nwt"
+license: MIT
+keywords:
+  - Airborne electromagnetics
+  - Permafrost
+  - SimPEG
+  - Inversion
+  - Depth of investigation
+  - PBTZ
