@@ -1,5 +1,7 @@
 # Airborne EM Inversion for Permafrost Mapping (NWT, Canada)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18841706.svg)](https://doi.org/10.5281/zenodo.18841706)
+
 This repository contains code to perform frequency-domain airborne electromagnetic (AEM) inversion, depth of investigation (DOI) analysis, and gradient-based permafrost transition-zone characterization for permafrost mapping in the Northwest Territories (NWT), Canada, using the open-source framework [SimPEG](https://simpeg.xyz/).
 
 The code is part of the study:
