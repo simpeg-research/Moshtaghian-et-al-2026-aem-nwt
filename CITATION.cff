@@ -1,9 +1,9 @@
 cff-version: 1.2.0
 message: "If you use this code, please cite the associated paper and software release."
 title: "Frequency-domain Airborne Electromagnetic Imaging of Permafrost in Northwestern Canada (SimPEG workflow)"
-version: 1.0.0
-doi: 10.0000/placeholder-doi
-date-released: 2026-01-01
+version: 1.0.1
+doi: 10.5281/zenodo.18841706
+date-released: 2026-03-02
 authors:
   - family-names: Moshtaghian
     given-names: Keytash
