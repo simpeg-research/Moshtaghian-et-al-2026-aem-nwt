@@ -54,11 +54,9 @@ def plot_resistivity_and_RMS(source_loc, dtm, frequencies, mesh, mesh_thicknesse
             idx = np.where(doi_norm[i, :] <= 0.2)[0]
             boundary_depths_DOI_fixed_b0.append(mesh.cell_centers_x[idx[0]] if len(idx) > 0 else np.nan)
 
-    # ---- Build plotting grids (depth centers) ----
+    # ---- Build depth centers (x-grid built later after km conversion) ----
     zc = np.asarray(mesh.cell_centers_x, float)  # depth (+down)
-    X, Z = np.meshgrid(source_loc, zc)
-    Z = -Z  # convert to negative-down for plotting
-    Z_topo = np.zeros_like(Z)
+    Z_topo = None  # placeholder; built after km conversion below
 
     DOI_topo_fixed_b0 = np.full(len(source_loc), np.nan)
     DOI_jac_avg_topo_fixed_b0 = np.full(len(source_loc), np.nan)
@@ -68,9 +66,9 @@ def plot_resistivity_and_RMS(source_loc, dtm, frequencies, mesh, mesh_thicknesse
     z0_depth = np.full(len(source_loc), np.nan)     # depth (+down)
     base_elev = np.full(len(source_loc), np.nan)    # elevation (m)
 
+    # Build a temporary Z array for elevation computations (using depth only)
+    _Z_tmp = -np.tile(zc, (len(source_loc), 1)).T   # shape (n_layers, n_soundings)
     for i in range(len(source_loc)):
-        Z_topo[:, i] = Z[:, i] + dtm[i]
-
         if plot_doi_mode == "oldenburg":
             DOI_topo_fixed_b0[i] = -boundary_depths_DOI_fixed_b0[i] + dtm[i]
         if plot_doi_mode == "christiansen":
@@ -124,6 +122,16 @@ def plot_resistivity_and_RMS(source_loc, dtm, frequencies, mesh, mesh_thicknesse
     else:
         masked_top = masked_bot = None
 
+    # ---- Convert x-axis to relative distance in km ----
+    source_loc_km = (source_loc - source_loc.min()) / 1000.0
+    X, Z = np.meshgrid(source_loc_km, zc)
+    Z = -Z
+    Z_topo = np.zeros_like(Z)
+    for i in range(len(source_loc_km)):
+        Z_topo[:, i] = Z[:, i] + dtm[i]
+    DOI_topo_fixed_b0_km = DOI_topo_fixed_b0
+    DOI_jac_avg_topo_km  = DOI_jac_avg_topo_fixed_b0
+
     # ---- Figure layout ----
     fig_width = 16
     fig_height = 4
@@ -145,23 +153,23 @@ def plot_resistivity_and_RMS(source_loc, dtm, frequencies, mesh, mesh_thicknesse
         ax1.contour(X, Z_topo, doi_norm.T, levels=[0.2], colors="grey", linewidths=1.5, linestyles="dashed")
         ax1.plot([], [], linestyle="dashed", color="grey", label="DOI (Oldenburg)")
     elif plot_doi_mode == "christiansen":
-        masked_doi_jac = np.where(Z_topo < DOI_jac_avg_topo_fixed_b0, 1, np.nan)
+        masked_doi_jac = np.where(Z_topo < DOI_jac_avg_topo_km, 1, np.nan)
         ax1.contourf(X, Z_topo, masked_doi_jac, levels=[0.5, 1.5], colors="white", alpha=0.5)
-        ax1.plot(source_loc, DOI_jac_avg_topo_fixed_b0, color="purple", linestyle="dashed", linewidth=1.5,
+        ax1.plot(source_loc_km, DOI_jac_avg_topo_km, color="purple", linestyle="dashed", linewidth=1.5,
                  label="DOI (Christiansen)")
 
-    # Base + optional PBTZ band
+    '''# Base + optional PBTZ band
     if (masked_top is not None) and (masked_bot is not None):
-        ax1.fill_between(source_loc, masked_top, masked_bot, alpha=0.25, label="PBTZ")
-        ax1.plot(source_loc, masked_top, "k--", linewidth=1.0)
-        ax1.plot(source_loc, masked_bot, "k--", linewidth=1.0)
+        ax1.fill_between(source_loc_km, masked_top, masked_bot, alpha=0.25, label="PBTZ")
+        ax1.plot(source_loc_km, masked_top, "k--", linewidth=1.0)
+        ax1.plot(source_loc_km, masked_bot, "k--", linewidth=1.0)'''
 
-    ax1.plot(source_loc, masked_base, "k-", linewidth=1.5, label="Gradient Base (z₀)")
+    ''''ax1.plot(source_loc_km, masked_base, "k-", linewidth=1.5, label="Gradient Base (z₀)")'''
 
     ax1.set_title(title, fontsize=12)
     ax1.set_ylabel("Elevation (m)", fontsize=10)
-    ax1.set_xlim(min(source_loc), max(source_loc))
-    ax1.set_ylim(0, max(dtm))
+    ax1.set_xlim(min(source_loc_km), max(source_loc_km))
+    ax1.set_ylim(50, max(dtm))
     ax1.set_xticks([])
     ax1.set_aspect(aspect="auto")
     ax1.legend(loc="upper right", fontsize=9, handlelength=2.0, framealpha=1.0, borderpad=0.4)
@@ -175,7 +183,7 @@ def plot_resistivity_and_RMS(source_loc, dtm, frequencies, mesh, mesh_thicknesse
 
     # ---- RMS panel ----
     ax2 = fig.add_subplot(gs[5], sharex=ax1)
-    ax2.plot(source_loc, RMS, color="r", label="RMS")
+    ax2.plot(source_loc_km, RMS, color="r", label="RMS")
     ax2.axhline(y=1, color="black", linestyle="dashed", linewidth=1.5)
     ax2.axhline(y=float(np.nanmean(RMS)), color="red", linestyle="dashed", linewidth=1.5)
     ax2.set_ylabel("RMS Misfit", fontsize=10)
@@ -184,7 +192,7 @@ def plot_resistivity_and_RMS(source_loc, dtm, frequencies, mesh, mesh_thicknesse
     ax2.set_ylim(0, 2)
     ax2.grid(True)
     ax2.set_xlim(ax1.get_xlim())
-    ax2.set_xlabel("Horizontal Distance (m)", fontsize=10)
+    ax2.set_xlabel("Distance (km)", fontsize=10)
 
     plt.savefig(filename, dpi=600, bbox_inches="tight")
     plt.show()
