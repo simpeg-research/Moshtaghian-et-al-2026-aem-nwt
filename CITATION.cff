@@ -8,6 +8,9 @@ authors:
   - family-names: Moshtaghian
     given-names: Keytash
     affiliation: University of Alberta
+  - family-names: Heagy
+    given-names: Lindsey J.
+    affiliation: University of British Columbia
 repository-code: "https://github.com/simpeg-research/Moshtaghian-et-al-2026-aem-nwt"
 license: MIT
 keywords:
